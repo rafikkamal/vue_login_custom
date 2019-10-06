@@ -20,6 +20,14 @@ const router = new Router({
       }
     },
     {
+      path: '/registration',
+      name: 'registration',
+      component: () => import('./views/Registration.vue'),
+      beforeEnter: (to, from, next) => {
+        checkLoginRegistrationRouteAccess(to, next);
+      }
+    },
+    {
       path: '/users',
       name: 'users',
       component: () => import('./views/Users.vue'),
@@ -64,24 +72,27 @@ const router = new Router({
 /*
  * My Horrible Creation
  */
+router.beforeEach((to, from, next) => {
+  store.dispatch('fetchAccessToken')
+  next()
+});
+
 let checkAdminRouteAccess = (to, next) => {
-  console.log("to: "+to.fullPath);
-  console.log(store.state.accessToken);
-  if (!store.state.accessToken) {
-    next(default_url__login)
-  } else { 
-    next();
+  if(getAdminRoutes().includes(to.name)) {
+    if (!store.state.accessToken) {
+      next(default_url__login)
+    } else { 
+      next()
+    }
   }
 }
 
 let checkLoginRegistrationRouteAccess = (to, next) => {
-  console.log("to: "+to.fullPath);
-  console.log(store.state.accessToken);
   if(getLoginRegistrationRoutes().includes(to.name)) {
     if (store.state.accessToken) {
       next(default_url__dashboard)
     } else { 
-      next();
+      next()
     }
   }
 }

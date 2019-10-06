@@ -1,13 +1,17 @@
 <template>
-  <div class="login">
-    <div v-if="loggingIn" class="container-loading">
+  <div class="register">
+    <h2>Registations Form</h2>
+    <hr/>
+    <div v-if="registeringIn" class="container-loading">
       <img src="/loading.gif" alt="Loading Icon">
     </div>
-    <p v-if="loginError">{{ loginError }}</p>
+    <p v-if="registerError">{{ registerError }}</p>
     <form @submit.prevent="loginSubmit">
-      <input type="email" placeholder="E-Mail" v-model="email">
+      <input type="text" placeholder="Username" v-model="username">
+      <input type="email" placeholder="Email" v-model="email">
       <input type="password" placeholder="Password" v-model="password">
-      <button type="submit">Login</button>
+      <input type="password" placeholder="Confirm Password" v-model="confirm_password">
+      <button type="submit">Register</button>
     </form>
   </div>
 </template>
@@ -18,31 +22,39 @@ import { mapState, mapActions } from 'vuex';
 export default {
 	data() {
 	  return {
+      username: 'Eve',
 	    email: 'eve.holt@reqres.in',
-	    password: 'cityslicka'
+	    password: 'pistol',
+      confirm_password: 'pistol'
 	  }
 	},
 	computed: {
 	  ...mapState([
-	    'loggingIn',
-	    'loginError',
+	    'registeringIn',
+	    'registerError',
 	  ])
 	},
 	methods: {
 	  ...mapActions([
-	    'doLogin'
+	    'doRegistration'
 	  ]),
 	  loginSubmit() {
-	    this.doLogin({
-	      email: this.email,
-	      password: this.password
-	    })
+	    // this.doRegistration({
+     //    username: this.username,
+	    //   email: this.email,
+     //    password: this.password,
+     //    confirm_password: this.confirm_password
+	    // })
+      this.doRegistration({
+        email: this.email,
+        password: this.password
+      })
 	  }
 	}
 }
 </script>
 <style scoped lang="scss">
-  .login {
+  .register {
     border: 1px solid black;
     border-radius: 5px;
     padding: 1.5rem;
@@ -65,6 +77,9 @@ export default {
         width: 2rem;
         height: 2rem;
       }
+    }
+    hr {
+      margin-bottom:25px;
     }
     form {
       display: flex;
