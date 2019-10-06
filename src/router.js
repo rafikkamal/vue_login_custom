@@ -65,7 +65,8 @@ const router = new Router({
  * My Horrible Creation
  */
 let checkAdminRouteAccess = (to, next) => {
-  //console.log("to: "+to.fullPath);
+  console.log("to: "+to.fullPath);
+  console.log(store.state.accessToken);
   if (!store.state.accessToken) {
     next(default_url__login)
   } else { 
@@ -74,7 +75,8 @@ let checkAdminRouteAccess = (to, next) => {
 }
 
 let checkLoginRegistrationRouteAccess = (to, next) => {
-  //console.log("to: "+to.fullPath);
+  console.log("to: "+to.fullPath);
+  console.log(store.state.accessToken);
   if(getLoginRegistrationRoutes().includes(to.name)) {
     if (store.state.accessToken) {
       next(default_url__dashboard)

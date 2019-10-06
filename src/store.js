@@ -8,8 +8,6 @@ import mutations from './vuex_files/mutations';
 
 Vue.use(Vuex)
 
-console.log(state);
-
 export default new Vuex.Store({
   state,
   mutations,
