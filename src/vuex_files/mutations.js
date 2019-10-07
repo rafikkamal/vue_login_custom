@@ -7,9 +7,10 @@ let mutations = {
   updateAccessToken: (state, accessToken) => {
     state.accessToken = accessToken
   },
-  updateUserInfo: (state, userName, userEmail) => {
-    state.userName = userName
-    state.userEmail = userEmail
+  updateUserInfo: (state, params) => {
+    //console.log(params)
+    state.userName = params.userName
+    state.userEmail = params.userEmail
   },
   logout: (state) => {
     state.accessToken = null

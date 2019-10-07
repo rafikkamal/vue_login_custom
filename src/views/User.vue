@@ -1,19 +1,32 @@
 <template>
   <div>
-    <p>User</p>
-    <p>ID: {{ $route.params.id }}</p>
+    <h3>{{ title }}</h3>
+    <p>User ID: {{ $route.params.id }}</p>
+    <p>Username: {{ userName }} </p>
+    <p>Useremail: {{ userEmail }} </p>
     <button @click=logout>Logout</button>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
+  data() {
+    return {
+      title: 'User Information'
+    }
+  },
+  computed: {
+    ...mapState([
+      'userName',
+      'userEmail'
+    ])
+  },
   methods: {
     ...mapActions([
       'logout'
     ])
-  },
+  }
 }
 </script>

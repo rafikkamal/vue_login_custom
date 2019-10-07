@@ -14,6 +14,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import router from '../router'
 
 export default {
 	data() {
@@ -30,14 +31,32 @@ export default {
 	},
 	methods: {
 	  ...mapActions([
-	    'doLogin'
+	    'doLogin',
+      'fetchUserInfo',
+      'fetchAccessToken'
 	  ]),
 	  loginSubmit() {
 	    this.doLogin({
 	      email: this.email,
 	      password: this.password
 	    })
-	  }
+      .then((res) => { 
+        this.setLocaleStorageInfo(res)
+        this.fetchUserInfo({
+          'userName': res.userName,
+          'userEmail': res.userEmail
+        })
+        router.push('/users')
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+	  },
+    setLocaleStorageInfo: (res) => {
+      localStorage.setItem('accessToken', res.accessToken)
+      localStorage.setItem('userName', res.userName)
+      localStorage.setItem('userEmail', res.userEmail)
+    }
 	}
 }
 </script>

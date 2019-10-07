@@ -74,6 +74,7 @@ const router = new Router({
  */
 router.beforeEach((to, from, next) => {
   store.dispatch('fetchAccessToken')
+  store.dispatch('fetchUserInfo')
   next()
 });
 
