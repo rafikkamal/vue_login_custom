@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div v-if="loggingIn" class="container-loading">
-      <img src="/loading.gif" alt="Loading Icon">
+      <img src="../loading.gif" alt="Loading Icon">
     </div>
     <p v-if="loginError">{{ loginError }}</p>
     <form @submit.prevent="loginSubmit">
@@ -62,8 +62,8 @@ export default {
       align-items: center;
       background-color: rgba(0,0,0,.3);
       img {
-        width: 2rem;
-        height: 2rem;
+        width: 4rem;
+        height: 4rem;
       }
     }
     form {
